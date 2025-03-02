@@ -10,5 +10,5 @@
       "maxDuration": 60
     }
   },
-  "outputDirectory": "build"
+  "outputDirectory": "dist"
 }
