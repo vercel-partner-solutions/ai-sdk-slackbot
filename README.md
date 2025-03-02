@@ -44,11 +44,6 @@ pnpm install
 #### Basic Information
 - Under "App Credentials", note down your "Signing Secret"
 
-#### Socket Mode (for Development)
-- Enable [Socket Mode](https://api.slack.com/apis/connections/socket)
-- Create an app-level token with `connections:write` scope
-- Note down the App-Level Token (starts with `xapp-`)
-
 #### OAuth & Permissions
 - Add the following [Bot Token Scopes](https://api.slack.com/scopes):
   - `app_mentions:read`
@@ -67,10 +62,6 @@ Create a `.env` file in the root of your project with the following:
 # Slack Credentials
 SLACK_BOT_TOKEN=xoxb-your-bot-token
 SLACK_SIGNING_SECRET=your-signing-secret
-
-# Development mode settings
-NODE_ENV=development
-SLACK_APP_TOKEN=xapp-your-app-token
 
 # OpenAI Credentials
 OPENAI_API_KEY=your-openai-api-key
@@ -115,14 +106,11 @@ Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to 
    - `OPENAI_API_KEY`
    - `EXA_API_KEY`
    
-   Note: Do NOT set `NODE_ENV` or `SLACK_APP_TOKEN` in production
-
 4. After deployment, Vercel will provide you with a production URL
 
 5. Update your Slack App configuration:
    - Go to your [Slack App settings](https://api.slack.com/apps)
    - Select your app
-   - Disable Socket Mode (it's only for development)
    - Go to "Event Subscriptions"
    - Enable Events
    - Set the Request URL to: `https://your-app.vercel.app/api/events`
