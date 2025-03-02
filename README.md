@@ -12,15 +12,13 @@ An AI-powered chatbot for Slack powered by the [AI SDK by Vercel](https://sdk.ve
   - Real-time weather lookup
   - Web search (powered by [Exa](https://exa.ai))
 - Easily extensible architecture to add custom tools (e.g., knowledge search)
-- Development mode for easy local testing
-- HTTP endpoints for production deployment
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+ installed
 - Slack workspace with admin privileges
 - [OpenAI API key](https://platform.openai.com/api-keys)
-- [Exa API key](https://exa.ai) (for web search functionality)
+- [Exa API key](https://exa.ai) (for web search functionality) 
 - A server or hosting platform (e.g., [Vercel](https://vercel.com)) to deploy the bot
 
 ## Setup
@@ -47,6 +45,7 @@ pnpm install
 #### OAuth & Permissions
 - Add the following [Bot Token Scopes](https://api.slack.com/scopes):
   - `app_mentions:read`
+  - `assistant:write`
   - `chat:write`
   - `im:history`
   - `im:read`
@@ -115,6 +114,10 @@ Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to 
    - Enable Events
    - Set the Request URL to: `https://your-app.vercel.app/api/events`
    - Save Changes
+   - Under "Subscribe to bot events", add:
+      - app_mention
+      - assistant_thread_started
+      - message:im
 
 ## Usage
 
@@ -143,6 +146,8 @@ The chatbot is built with an extensible architecture using the [AI SDK's tool sy
 - Company documentation search
 
 To add a new tool, extend the tools object in the `lib/ai.ts` file following the existing pattern.
+
+You can also disable any of the existing tools by removing the tool in the `lib/ai.ts` file.
 
 ## License
 
