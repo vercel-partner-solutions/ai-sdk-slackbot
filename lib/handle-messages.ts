@@ -15,7 +15,7 @@ export async function assistantThreadMessage(
   await client.chat.postMessage({
     channel: channel_id,
     thread_ts: thread_ts,
-    text: "Hello, I'm an AI assistant built with the <https://sdk.vercel.ai|AI SDK>!",
+    text: "Hello, I'm an AI assistant built with the AI SDK by Vercel!",
   });
 
   await client.assistant.threads.setSuggestedPrompts({
