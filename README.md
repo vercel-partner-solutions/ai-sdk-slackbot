@@ -153,4 +153,4 @@ You can also disable any of the existing tools by removing the tool in the `lib/
 
 ## License
 
-ISC 
+MIT 
