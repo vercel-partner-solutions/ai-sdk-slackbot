@@ -83,7 +83,7 @@ Replace the placeholder values with your actual tokens.
 
 ## Local Development
 
-Use the [Vercel CLI](https://vercel.com/docs/cli) and [localtunnel](https://github.com/localtunnel/localtunnel) to test out this project locally:
+Use the [Vercel CLI](https://vercel.com/docs/cli) and [untun](https://github.com/unjs/untun) to test out this project locally:
 
 ```sh
 pnpm i -g vercel
@@ -91,10 +91,12 @@ pnpm vercel dev --listen 3000 --yes
 ```
 
 ```sh
-npx localtunnel --port 3000
+npx untun@latest tunnel http://localhost:3000
 ```
 
-Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to the `localtunnel` URL.
+Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to the `untun` URL.
+
+> Note: you may encounter issues locally with function timeouts.
 
 ## Production Deployment
 
