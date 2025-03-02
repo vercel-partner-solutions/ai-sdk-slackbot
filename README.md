@@ -115,9 +115,9 @@ Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to 
    - Set the Request URL to: `https://your-app.vercel.app/api/events`
    - Save Changes
    - Under "Subscribe to bot events", add:
-      - app_mention
-      - assistant_thread_started
-      - message:im
+      - `app_mention`
+      - `assistant_thread_started`
+      - `message:im`
 
 ## Usage
 
