@@ -27,12 +27,10 @@ export async function POST(request: Request) {
 
     if (event.type === "app_mention") {
       waitUntil(handleNewAppMention(event, botUserId));
-      return SuccessResponse();
     }
 
     if (event.type === "assistant_thread_started") {
       waitUntil(assistantThreadMessage(event));
-      return SuccessResponse();
     }
 
     if (
@@ -44,7 +42,6 @@ export async function POST(request: Request) {
       event.bot_id !== botUserId
     ) {
       waitUntil(handleNewAssistantMessage(event, botUserId));
-      return SuccessResponse();
     }
 
     return SuccessResponse();
