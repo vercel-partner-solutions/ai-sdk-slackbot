@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       waitUntil(handleNewAssistantMessage(event, botUserId));
     }
 
-    return SuccessResponse();
+    return new Response("Success!", { status: 200 });
   } catch (error) {
     console.error("Error generating response", error);
     return new Response("Error generating response", { status: 500 });
