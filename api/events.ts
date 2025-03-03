@@ -3,7 +3,6 @@ import {
   assistantThreadMessage,
   handleNewAssistantMessage,
 } from "../lib/handle-messages";
-import { SuccessResponse } from "../lib/utils";
 import { waitUntil } from "@vercel/functions";
 import { handleNewAppMention } from "../lib/handle-app-mention";
 import { verifyRequest, getBotId } from "../lib/slack-utils";
