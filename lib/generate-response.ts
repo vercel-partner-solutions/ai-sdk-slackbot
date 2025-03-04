@@ -70,11 +70,6 @@ export const generateResponse = async (
     },
   });
 
-  // Replace Markdown links with <URL|text>
-  const linkRegex = /\[(.*?)\]\((.*?)\)/g;
-  const replacedLinks = text.replace(linkRegex, "<$2|$1>");
-
-  // Replace all instances of "**" with "*"
-  const finalStr = replacedLinks.replace(/\*\*/g, "*");
-  return finalStr;
+  // Convert markdown to Slack mrkdwn format
+  return text.replace(/\[(.*?)\]\((.*?)\)/g, "<$2|$1>").replace(/\*\*/g, "*");
 };
