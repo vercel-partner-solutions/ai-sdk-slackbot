@@ -3,7 +3,7 @@ import type {
   GenericMessageEvent,
 } from "@slack/web-api";
 import { client, getThread, updateStatusUtil } from "./slack-utils";
-import { callLLM } from "./ai";
+import { generateResponse } from "./generate-response";
 
 export async function assistantThreadMessage(
   event: AssistantThreadStartedEvent,
@@ -51,7 +51,7 @@ export async function handleNewAssistantMessage(
   updateStatus("is thinking...");
 
   const messages = await getThread(channel, thread_ts, botUserId);
-  const result = await callLLM(messages, updateStatus);
+  const result = await generateResponse(messages, updateStatus);
 
   await client.chat.postMessage({
     channel: channel,

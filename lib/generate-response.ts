@@ -3,7 +3,7 @@ import { CoreMessage, generateText, tool } from "ai";
 import { z } from "zod";
 import { exa } from "./utils";
 
-export const callLLM = async (
+export const generateResponse = async (
   messages: CoreMessage[],
   updateStatus?: (status: string) => void,
 ) => {

@@ -1,6 +1,6 @@
 import { AppMentionEvent } from "@slack/web-api";
 import { client, getThread } from "./slack-utils";
-import { callLLM } from "./ai";
+import { generateResponse } from "./generate-response";
 
 const updateStatusUtil = async (
   initialStatus: string,
@@ -40,10 +40,10 @@ export async function handleNewAppMention(
 
   if (thread_ts) {
     const messages = await getThread(channel, thread_ts, botUserId);
-    const result = await callLLM(messages, updateMessage);
+    const result = await generateResponse(messages, updateMessage);
     updateMessage(result);
   } else {
-    const result = await callLLM(
+    const result = await generateResponse(
       [{ role: "user", content: event.text }],
       updateMessage,
     );
