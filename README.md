@@ -20,7 +20,7 @@ An AI-powered chatbot for Slack powered by the [AI SDK by Vercel](https://sdk.ve
 - [Node.js](https://nodejs.org/) 18+ installed
 - Slack workspace with admin privileges
 - [OpenAI API key](https://platform.openai.com/api-keys)
-- [Exa API key](https://exa.ai) (for web search functionality) 
+- [Exa API key](https://exa.ai) (for web search functionality)
 - A server or hosting platform (e.g., [Vercel](https://vercel.com)) to deploy the bot
 
 ## Setup
@@ -42,10 +42,13 @@ pnpm install
 ### 3. Configure Slack App Settings
 
 #### Basic Information
+
 - Under "App Credentials", note down your "Signing Secret"
 
 #### OAuth & Permissions
+
 - Add the following [Bot Token Scopes](https://api.slack.com/scopes):
+
   - `app_mentions:read`
   - `assistant:write`
   - `chat:write`
@@ -73,6 +76,27 @@ EXA_API_KEY=your-exa-api-key
 
 Replace the placeholder values with your actual tokens.
 
+### 5. Deploy your app
+
+- If building locally, follow steps in the Local Development section to tunnel your local environment and then copy the tunnel URL.
+- If deploying to Vercel, follow the instructions in the Production Deployment section and copy your deployment URL.
+
+### 6. Update your Slack App configuration:
+
+Go to your [Slack App settings](https://api.slack.com/apps)
+
+- Select your app
+- Go to "Event Subscriptions"
+- Enable Events
+- Set the Request URL to either your local URL or your deployment URL: (e.g. `https://your-app.vercel.app/api/events`)
+- Save Changes
+- Under "Subscribe to bot events", add:
+  - `app_mention`
+  - `assistant_thread_started`
+  - `message:im`
+
+> Remember to include `/api/events` in the Request URL.
+
 ## Local Development
 
 Use the [Vercel CLI](https://vercel.com/docs/cli) and [untun](https://github.com/unjs/untun) to test out this project locally:
@@ -88,7 +112,7 @@ npx untun@latest tunnel http://localhost:3000
 
 Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to the `untun` URL.
 
-> Note: you may encounter issues locally with function timeouts.
+> Note: you may encounter issues locally with `waitUntil`. This is being investigated.
 
 ## Production Deployment
 
@@ -97,16 +121,18 @@ Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to 
 1. Push your code to a GitHub repository
 
 2. Deploy to [Vercel](https://vercel.com):
+
    - Go to vercel.com
    - Create New Project
    - Import your GitHub repository
 
 3. Add your environment variables in the Vercel project settings:
+
    - `SLACK_BOT_TOKEN`
    - `SLACK_SIGNING_SECRET`
    - `OPENAI_API_KEY`
    - `EXA_API_KEY`
-   
+
 4. After deployment, Vercel will provide you with a production URL
 
 5. Update your Slack App configuration:
@@ -117,9 +143,9 @@ Make sure to modify the [subscription URL](./README.md/#enable-slack-events) to 
    - Set the Request URL to: `https://your-app.vercel.app/api/events`
    - Save Changes
    - Under "Subscribe to bot events", add:
-      - `app_mention`
-      - `assistant_thread_started`
-      - `message:im`
+     - `app_mention`
+     - `assistant_thread_started`
+     - `message:im`
 
 ## Usage
 
@@ -133,6 +159,7 @@ The bot maintains context within both threads and direct messages, so it can fol
 ### Available Tools
 
 1. **Weather Tool**: The bot can fetch real-time weather information for any location.
+
    - Example: "What's the weather like in London right now?"
 
 2. **Web Search**: The bot can search the web for up-to-date information using [Exa](https://exa.ai).
@@ -142,6 +169,7 @@ The bot maintains context within both threads and direct messages, so it can fol
 ### Extending with New Tools
 
 The chatbot is built with an extensible architecture using the [AI SDK's tool system](https://sdk.vercel.ai/docs/ai-sdk-core/tools-and-tool-calling). You can easily add new tools such as:
+
 - Knowledge base search
 - Database queries
 - Custom API integrations
@@ -153,4 +181,4 @@ You can also disable any of the existing tools by removing the tool in the `lib/
 
 ## License
 
-MIT 
+MIT
