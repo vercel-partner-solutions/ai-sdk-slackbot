@@ -1,8 +1,8 @@
-import { WebClient } from '@slack/web-api';
-import { CoreMessage } from 'ai'
-import crypto from 'crypto'
+import { WebClient } from "@slack/web-api";
+import { ModelMessage } from "ai";
+import crypto from "crypto";
 
-const signingSecret = process.env.SLACK_SIGNING_SECRET!
+const signingSecret = process.env.SLACK_SIGNING_SECRET!;
 
 export const client = new WebClient(process.env.SLACK_BOT_TOKEN);
 
@@ -11,37 +11,37 @@ export async function isValidSlackRequest({
   request,
   rawBody,
 }: {
-  request: Request
-  rawBody: string
+  request: Request;
+  rawBody: string;
 }) {
   // console.log('Validating Slack request')
-  const timestamp = request.headers.get('X-Slack-Request-Timestamp')
-  const slackSignature = request.headers.get('X-Slack-Signature')
+  const timestamp = request.headers.get("X-Slack-Request-Timestamp");
+  const slackSignature = request.headers.get("X-Slack-Signature");
   // console.log(timestamp, slackSignature)
 
   if (!timestamp || !slackSignature) {
-    console.log('Missing timestamp or signature')
-    return false
+    console.log("Missing timestamp or signature");
+    return false;
   }
 
   // Prevent replay attacks on the order of 5 minutes
   if (Math.abs(Date.now() / 1000 - parseInt(timestamp)) > 60 * 5) {
-    console.log('Timestamp out of range')
-    return false
+    console.log("Timestamp out of range");
+    return false;
   }
 
-  const base = `v0:${timestamp}:${rawBody}`
+  const base = `v0:${timestamp}:${rawBody}`;
   const hmac = crypto
-    .createHmac('sha256', signingSecret)
+    .createHmac("sha256", signingSecret)
     .update(base)
-    .digest('hex')
-  const computedSignature = `v0=${hmac}`
+    .digest("hex");
+  const computedSignature = `v0=${hmac}`;
 
   // Prevent timing attacks
   return crypto.timingSafeEqual(
     Buffer.from(computedSignature),
     Buffer.from(slackSignature)
-  )
+  );
 }
 
 export const verifyRequest = async ({
@@ -72,8 +72,8 @@ export const updateStatusUtil = (channel: string, thread_ts: string) => {
 export async function getThread(
   channel_id: string,
   thread_ts: string,
-  botUserId: string,
-): Promise<CoreMessage[]> {
+  botUserId: string
+): Promise<ModelMessage[]> {
   const { messages } = await client.conversations.replies({
     channel: channel_id,
     ts: thread_ts,
@@ -99,9 +99,9 @@ export async function getThread(
       return {
         role: isBot ? "assistant" : "user",
         content: content,
-      } as CoreMessage;
+      } as ModelMessage;
     })
-    .filter((msg): msg is CoreMessage => msg !== null);
+    .filter((msg): msg is ModelMessage => msg !== null);
 
   return result;
 }
