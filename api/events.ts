@@ -24,6 +24,7 @@ export async function POST(request: Request) {
 
     const event = payload.event as SlackEvent;
 
+    // When you @ the bot in a channel/direct message/group message.
     if (event.type === "app_mention") {
       waitUntil(handleNewAppMention(event, botUserId));
     }
@@ -32,15 +33,9 @@ export async function POST(request: Request) {
       waitUntil(assistantThreadMessage(event));
     }
 
-    if (
-      event.type === "message" &&
-      !event.subtype &&
-      event.channel_type === "im" &&
-      !event.bot_id &&
-      !event.bot_profile &&
-      event.bot_id !== botUserId
-    ) {
-      waitUntil(handleNewAssistantMessage(event, botUserId));
+    if (event.type === "assistant_thread_started") {
+      // waitUntil(assistantThreadMessage(event));
+      console.log("assistant_thread_started", event);
     }
 
     return new Response("Success!", { status: 200 });

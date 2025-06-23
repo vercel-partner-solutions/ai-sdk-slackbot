@@ -1,0 +1,50 @@
+{
+  "display_information": {
+    "name": "Agent",
+    "description": "A Slack agent built with the AI SDK by Vercel",
+    "background_color": "#000000"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": true,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": {
+      "display_name": "Agent",
+      "always_online": true
+    },
+    "assistant_view": {
+      "assistant_description": "A string description of the AI app."
+    }
+  },
+  "oauth_config": {
+    "redirect_urls": ["https://www.vercel.com"],
+    "scopes": {
+      "bot": [
+        "app_mentions:read",
+        "assistant:write",
+        "channels:history",
+        "chat:write",
+        "im:history",
+        "mpim:history",
+        "im:read",
+        "im:write"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "request_url": "https://ai-sdk-slackbot-ebon.vercel.app/api/events",
+      "bot_events": [
+        "app_mention",
+        "assistant_thread_context_changed",
+        "assistant_thread_started",
+        "message.im"
+      ]
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}
